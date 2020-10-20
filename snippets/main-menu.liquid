@@ -1,0 +1,71 @@
+{% if main-menu == 'mobile' %}
+<nav class="site-menu-mobile">
+    <ul class="main_menu site-menu-mobile__inner">
+    {% for link in linklists.main-menu.links %}
+    {% assign child_list_handle = link.title | handleize %}
+    {% assign megamenu = false %}
+
+    {% for block in section.blocks %}
+    {% if block.type == 'megamenu' %}
+    {% if child_list_handle == block.settings.mega_menu %}
+    {% include 'mega-menu' %}
+    {% assign megamenu = true %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    {% if megamenu == false %}
+    {% if linklists[child_list_handle].links != blank %}
+    <li class="site-menu-mobile__item {% if link.active %} site-menu-mobile__item__active{% endif %}">
+      <a class="site-menu-mobile__link" href="{{link.url}}">{{link.title}}</a>
+      <ul class="sub_menu">
+        {% for childlink in linklists[child_list_handle].links %}
+        <li><a class="" href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% else %}
+    <li class="site-menu-mobile__item {% if link.active %} site-menu-mobile__item__active{% endif %}">
+      <a class="site-menu-mobile__link{% if link.title contains 'Sale' %} site-menu-mobile__link__sale{% endif %}" href="{{link.url}}">{{link.title}}</a>
+    </li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+{% else %}
+<nav class="site-menu">
+    <ul class="main_menu site-menu__inner">
+    {% for link in linklists.main-menu.links %}
+    {% assign child_list_handle = link.title | handleize %}
+    {% assign megamenu = false %}
+
+    {% for block in section.blocks %}
+    {% if block.type == 'megamenu' %}
+    {% if child_list_handle == block.settings.mega_menu %}
+    {% include 'mega-menu' %}
+    {% assign megamenu = true %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    {% if megamenu == false %}
+    {% if linklists[child_list_handle].links != blank %}
+    <li class="site-menu__item {% if link.active %} site-menu__item__active{% endif %}">
+      <a class="site-menu__link" href="{{link.url}}">{{link.title}}</a>
+      <ul class="sub_menu">
+        {% for childlink in linklists[child_list_handle].links %}
+        <li><a class="" href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% else %}
+    <li class="site-menu__item {% if link.active %} site-menu__item__active{% endif %}">
+      <a class="site-menu__link{% if link.title contains 'Sale' %} site-menu__link__sale{% endif %}" href="{{link.url}}">{{link.title}}</a>
+    </li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+{% endif %}
