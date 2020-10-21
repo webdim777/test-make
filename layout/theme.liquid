@@ -7,7 +7,9 @@
   <meta name="theme-color" content="">
   <link rel="canonical" href="{{ canonical_url }}">
   {{ 'theme.css' | asset_url | stylesheet_tag }}
-
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  
   <title>{{ shop.name }}</title>
 
   <meta name="description" content="">
@@ -16,6 +18,9 @@
 <body>
     {% section 'header' %}
     {{ content_for_layout }}
+    
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   {{ 'scripts.js' | asset_url | script_tag }}
 </body>
 </html>
