@@ -18,7 +18,39 @@
 <body>
     {% section 'header' %}
     {{ content_for_layout }}
-    
+
+    <script>
+      window.theme = {
+        rootUrl: "{{ routes.root_url }}",
+        stylesheet: "{{ 'theme.min.css' | asset_url }}",
+        strings: {
+          addToCart: {{ 'products.product.add_to_cart' | t | json }},
+          cartError: {{ 'cart.general.cart_error' | t | json }},
+          external: {{ 'general.accessibility.link_messages.external' | t | json }},
+          itemAddedToCartSingle: {{ 'products.product.item_added_to_cart.single' | t | json }},
+          itemAddedToCartMulti: {{ 'products.product.item_added_to_cart.multi' | t | json }},
+          newWindow: {{ 'general.accessibility.link_messages.new_window' | t | json }},
+          newWindowExternal: {{ 'general.accessibility.link_messages.new_window_and_external' | t | json }},
+          quantityError: {{ 'cart.general.cart_quantity_error_html' | t: quantity: "[quantity]", title: "[title]" | json }},
+          quantityMinimumMessage: {{ 'products.product.quantity_minimum_message' | t | json }},
+          productAddedToCart: {{ 'products.product.product_added_to_cart_title' | t: quantity: "[quantity]", title: "[title]" | json }},
+          productUpdatedOnCart: {{ 'products.product.product_updated_cart' | t: quantity: "[quantity]", title: "[title]" | json }},
+          productRemovedFromCart: {{ 'products.product.product_removed_cart' | t: quantity: "[quantity]", title: "[title]" | json }},
+          regularPrice: {{ 'products.product.regular_price' | t | json }},
+          salePrice: {{ 'products.product.sale_price' | t | json }},
+          soldOut: {{ 'products.product.sold_out' | t | json }},
+          unavailable: {{ 'products.product.unavailable' | t | json }},
+          unitPrice: {{ 'products.product.unit_price_label' | t | json }},
+          unitPriceSeparator: {{ 'general.accessibility.unit_price_separator' | t | json }},
+          subtotal: {{ 'cart.general.subtotal' | t | json }},
+          mediaCarousel: {{ 'products.slider.media_carousel' | t | json }},
+          mediaSlide: {{ 'products.slider.media_slide' | t | json }}
+        },
+        moneyFormat: {{ shop.money_format | json }},
+        moneyFormatWithCurrency: {{ shop.money_with_currency_format | json }}
+      };
+    </script>    
+    {% render 'cart-drawer' %}    
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   {{ 'scripts.js' | asset_url | script_tag }}

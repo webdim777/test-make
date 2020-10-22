@@ -1,0 +1,65 @@
+<div class="cart-drawer__item" data-cart-item-product-id="{{ item.product.id }}" data-cart-item="{{ item.key }}">
+    {% if item.image %}
+      <div class="cart-drawer__media">
+        <img srcset="{% if item.image.width >= 67 %}{{ item.image | img_url: '67x' }} 1x,{% endif %}
+          {% if item.image.width >= 134 %}{{ item.image | img_url: '134x' }} 2x{% endif %}"
+          width="{{ item.image.width }}"
+          height="{{ item.image.height }}"
+          loading="lazy"
+          src="{{ item | img_url: '134x' }}"
+          alt="{{ item.image.alt | escape }}">
+      </div>
+    {% endif %}
+    <div class="cart-drawer__product">
+      <p class="cart-drawer__name">{{ item.title }}</p>
+    <div class="cart-drawer__price">
+      {%- if item.original_price != item.final_price -%}
+        <div class="cart-drawer__discounted-prices">
+          <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+          <span class="cart-item__original-price cart-item__original-price--strike">
+            {{ item.original_price | money }}
+          </span>
+          <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
+          <span class="cart-item__price cart-item__price--discount">{{ item.final_price | money }}</span>
+        </div>
+      {%- else -%}
+        <span class="cart-item__original-price cart-item__price">{{ item.original_price | money }}</span>
+      {%- endif -%}
+    </div>
+    <div class="quantity">  
+      <button class="quantity-input__button quantity_minus" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="3" viewBox="0 0 12 3" fill="none"><path d="M0.69873 2.21891V0.643912H11.3037V2.21891H0.69873Z" fill="black"/></svg>
+      </button>
+      <input class="quantity-input__element cart-drawer__input"  id="quantity_{{ item.key }}"
+      value="{{ item.quantity }}"
+      type="number"
+      pattern="\d*"
+      min="1"
+      aria-label="{{ 'cart.general.item_quantity' | t }}"
+      data-cart-item-quantity>
+      <button class="quantity-input__button quantity_plus" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M11.1701 5.09791V6.96691H6.9281V11.2089H5.0801V6.96691H0.838102V5.09791H5.0801V0.855911H6.9281V5.09791H11.1701Z" fill="black"/></svg>
+      </button>
+    </div>
+  </div>
+
+  </div>
+
+
+  {%- if item.variant.available and item.unit_price_measurement -%}
+    <div class="cart-drawer__unit-price">
+      {% render 'product-unit-price', variant: item, available: item.variant.available %}
+    </div>
+  {%- endif -%}
+
+  {%- if item.discounts.size > 0 -%}
+    <ul class="cart-drawer__discounts"  role="list">
+      {%- for discount in item.discounts -%}
+        <li>
+          {{ discount.title }}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+
+  <p class="cart-drawer__error" aria-live="polite" data-cart-item-error></p>

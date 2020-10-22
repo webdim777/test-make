@@ -26,8 +26,8 @@
 <div class="product-single__info">
   <h1 class="product-single__title">{{ product.title }}</h1>
   <form action="/cart/add" method="post" enctype="multipart/form-data">
-    <label for="options">Choose your length</label>
-    <select name="options">
+    <label for="id">Choose your length</label>
+    <select name="id">
         {% for variant in product.variants %}
         {% if variant.available == true %}
         <option value="{{variant.id}}">{{ variant.title }}</option>
@@ -50,7 +50,7 @@
       </div>
     {%- endif -%}
     <div class="product-single__action">
-      <div class="product-single__quantity">  
+      <div class="quantity">  
           <button class="quantity-input__button quantity_minus" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="3" viewBox="0 0 12 3" fill="none"><path d="M0.69873 2.21891V0.643912H11.3037V2.21891H0.69873Z" fill="black"/></svg>
           </button>
@@ -61,7 +61,7 @@
       </div>
       <input type="submit" name="add" id="add" value="Add to Cart" class="button-primary">
     </div>
-  </form>  
+  </form>
   <div class="product-single__description rte">
     {{ product.description }}
   </div>
